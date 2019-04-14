@@ -40,7 +40,7 @@ main {
     grid-template-areas: "head head"
                            "main side"
                            "foot side";
-    grid-template-columns: minmax(auto, $content-width - $sidebar-width) $sidebar-width;
+    grid-template-columns: minmax(auto, $content-width) $sidebar-width;
 
     main {
       max-width: calc(100vw - #{$sidebar-width + $spacing-unit / 2});
