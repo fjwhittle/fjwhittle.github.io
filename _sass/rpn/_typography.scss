@@ -1,0 +1,28 @@
+* {
+  font-size-adjust: 0.45;
+}
+
+.post-link { font-size: unset; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $heading-font-family;
+}
+
+.site-title {
+  font-family: KaushanScriptRegular, $heading-font-family;
+  font-size: 2.6rem;
+}
+
+main, .post-content {
+  h1,.post-title { font-size: 2.2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.6rem; }
+  h4 { font-size: 1.4rem; }
+  h5 { font-size: 1.5rem; }
+  h6 { font-size: 1.1rem; }
+}
+
+.sidebar {
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.1rem; }
+}

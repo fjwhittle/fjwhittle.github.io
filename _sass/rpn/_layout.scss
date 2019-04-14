@@ -1,0 +1,54 @@
+body {
+  display: grid;
+  margin: 0;
+
+  grid-template-areas: "head"
+                       "main"
+                       "side"
+                       "foot";
+  
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto;
+  justify-content: center;
+
+  grid-gap: $spacing-unit / 2;
+}
+
+header {
+  grid-area: head;
+}
+
+main {
+  grid-area: main;
+  max-width: 100vw;
+}
+
+.sidebar {
+  grid-area: side;
+}
+
+.wrapper {
+  padding: 0 $spacing-unit / 3;
+}
+
+.page-content {
+  padding: 0
+}
+
+@media (min-width: $on-palm) {
+  body.has-sidebar {
+    grid-template-areas: "head head"
+                           "main side"
+                           "foot side";
+    grid-template-columns: minmax(auto, $content-width - $sidebar-width) $sidebar-width;
+
+    main {
+      max-width: calc(100vw - #{$sidebar-width + $spacing-unit / 2});
+    }
+  }
+
+  .wrapper {
+    padding: 0;
+  }
+}
+

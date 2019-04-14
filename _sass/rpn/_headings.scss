@@ -1,0 +1,43 @@
+.site-header > .wrapper {
+  display: flex;
+
+  > .site-title {
+    margin: 0 auto 0 0;
+    padding-right: 38px;
+    
+    @media (min-width: $on-palm) {
+      margin: 0 auto;
+      padding-right: 0;
+    }
+  }
+
+  > .site-nav {
+    margin: 0;
+    @media (min-width: $on-palm) {
+      margin: 0 $spacing-unit / 3;
+    }
+  }
+}
+
+.site-title {
+  color: #88007b;
+  filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2)) hue-rotate(0);
+  animation: 180s slow-colour infinite linear;
+
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    background: linear-gradient(to bottom, #88007b, #aa2010);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@keyframes slow-colour {
+  from { filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2)) hue-rotate(0); }
+  to   { filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2)) hue-rotate(1turn); }
+}
+
+.sidebar h2 {
+  border-bottom: 1px solid $grey-color-light;
+  text-align: right;
+}
