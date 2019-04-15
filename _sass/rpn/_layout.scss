@@ -6,7 +6,7 @@ body {
                        "main"
                        "side"
                        "foot";
-  
+
   grid-template-rows: auto 1fr auto;
   grid-template-columns: auto;
   justify-content: center;
@@ -53,3 +53,29 @@ main {
   }
 }
 
+figure {
+  max-width: 100%;
+  overflow: auto hidden;
+
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  align-content: center;
+
+  padding: 5px 0;
+
+  > *, > [class^=MathJax] {
+    margin: 5px auto;
+  }
+
+  &.highlight {
+    align-items: stretch;
+    align-content: stretch;
+
+    padding: 0;
+
+    > * {
+      margin: 0;
+    }
+  }
+}
