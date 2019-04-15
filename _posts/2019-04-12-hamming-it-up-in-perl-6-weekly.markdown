@@ -6,7 +6,7 @@ author: Francis
 tags:
 - perlweeklychallenge
 - perl6
-modified_time: '2019-04-13T01:47:27.441+10:00'
+modified_time: '2019-04-15T10:19:09.000+10:00'
 redirect_from: '/2019/04/hamming-it-up-in-perl-6-weekly.html'
 ---
 
@@ -16,7 +16,7 @@ Okay, so first up, I started with the [Perl weekly challenge](https://perlweekly
 
 My first thought was to naïvely loop through integers, starting from 1, until we found the appropriate numbers. Pretty simple:
 
-{% highlight perl6 %}
+{% highlight perl %}
 (gather for 1..* -> $k {  my $n = $k;
   for (2, 3, 5) -> $x { $n /= $x until $n % $x }
   $n == 1 and take $k
@@ -94,3 +94,6 @@ This took much less effort.  There's a lot of algorithms for generating Pascal's
 </figure>
 
 … and made it into Perl6. See [https://github.com/manwar/perlweeklychallenge-club/blob/master/challenge-003/fjwhittle/perl6/ch-2.p6](https://github.com/manwar/perlweeklychallenge-club/blob/master/challenge-003/fjwhittle/perl6/ch-2.p6), noting that the formula is 1-indexed and Perl6 is 0-indexed (except I made $n 1-indexed).
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=MML_HTMLorMML">
+</script>
