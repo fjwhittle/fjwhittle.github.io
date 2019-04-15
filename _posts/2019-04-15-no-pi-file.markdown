@@ -6,7 +6,8 @@ author: Francis
 tags:
 - perlweeklychallenge
 - perl6
-modified_time: '2019-04-15T23:50:34.000+10:00'
+modified_time: '2019-04-16T00:22:25.000+10:00'
+utterances: true
 ---
 
 A new challenge appears!
