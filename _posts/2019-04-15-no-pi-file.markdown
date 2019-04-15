@@ -6,7 +6,7 @@ author: Francis
 tags:
 - perlweeklychallenge
 - perl6
-modified_time: '2019-04-16T00:22:25.000+10:00'
+modified_time: '2019-04-16T00:52:42.000+10:00'
 utterances: true
 ---
 
@@ -276,8 +276,8 @@ Which saves us some calculation as during a gather / take we already know what
 *n<sub>k-1</sub>* is. Throw it together, sum the results, multiply by two, and
 Bob's yer uncle.
 
-While we're at it, we'll use FatRats those pesky IEE754 floats and their
-imprecision away.
+While we're at it, we'll use FatRats to be away with those pesky IEE754 floats
+and their imprecision.
 
 Through some analysis I found that 608 iterations was enough to give me 177
 correct significant digits, which is the final size of the script; that's quite
