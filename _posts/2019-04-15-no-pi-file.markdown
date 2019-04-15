@@ -1,0 +1,311 @@
+---
+layout: post
+title: Number of Pi in file – Perl weekly challenge, week 4
+date: '2019-04-15T10:53:34.000+10:00'
+author: Francis
+tags:
+- perlweeklychallenge
+- perl6
+modified_time: '2019-04-15T23:50:34.000+10:00'
+---
+
+A new challenge appears!
+
+## How much π in your script?
+
+At first glance, part 1 of this challenge is pretty simple:
+
+{% highlight perl %}
+printf "%.16f",pi
+{% endhighlight %}
+
+Of course, I had to create the file using echo to avoid have a newline at the
+end.
+Look close and there's a problem though.
+
+{% highlight bash %}
+$ perl6 ch-1.p6
+3.1415926535897930
+{% endhighlight %}
+
+That's **almost** but not *quite* 16 significant digits of pi. I'm keeping this
+as a first solution though, because IMHO it *should* be the answer.
+
+Okay, time to break out the cynicallest solution for perl6:
+
+{% highlight perl %}
+pi.\        put
+{% endhighlight %}
+
+15 significant digits of π for 15 characters, including the line break 🤪.
+
+Now let's get serious. Number sequences were actually one of my favourite
+parts of Mathematics, and when the world presents me with an opportunity to
+strike a Calculating π shaped nail, I'm going to hit it with my convergent
+sequence hammer.
+
+### Isn't that a bit far away from the original question?
+
+Yeah, I doubt this was the challenge's intention; I'm doing it anyway.
+
+Interestingly enough, revisiting *last* week's challenge brought up something
+about calculating π using Pascal's Triangle; apparently since I was last doing
+things with Blaise Pascal's work in high school, [one Jonas Castillo Toloza
+discovered another place it exposed
+π](https://www.cut-the-knot.org/arithmetic/algebra/TriPiInPascal.shtml) – in the
+triangular numbers.
+
+I implemented this in Perl6; it went something like this:
+
+{% highlight perl %}
+my $Ts := lazy gather loop (my $n = 1;;) {
+  for 1, 1, -1, -1 -> $m {
+    take ($m / ($n * ($n + 1) / 2));
+    $n++;
+  }
+}
+
+my $π = 2 + [+] $Ts[^$lim];
+{% endhighlight %}
+
+Which is functional, and if you try out a couple of different sizes of $lim you
+can see it converging; keeping in mind that Perl6's `pi` is apparently accurate
+to the 15 digits it **has**:
+
+```
+> pi
+3.141592653589793
+> 2 + [+] $Ts[^2000]
+3.1415921540896665
+> 2 + [+] $Ts[^80000] # Jump of 40x, 3 digits closer
+3.1415926532772707
+> 2 + [+] $Ts[^160000] # 2x, one more digit
+3.1415926535116068
+> 2 + [+] $Ts[^320000] # 2x, closer but 11th digit is still wrong
+3.141592653570272
+> 2 + [+] $Ts[^640000] # 2x again, there we go
+3.1415926535849534
+> 2 + [+] $Ts[^2**20] # 1048576; many iterations
+3.1415926535880487
+> pi
+3.141592653589793
+```
+
+… that's a whole megasequence to still be accurate accurate to only 12 digits. That
+speed of convergence is effectively nonfunctional.
+
+I've used a much faster algorithm in the past; The Euler Convergence
+Transformation, which is:
+
+<figure>
+  <math>
+    <semantics>
+      <mrow class="MJX-TeXAtom-ORD">
+        <mstyle displaystyle="true" scriptlevel="0">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mi>π</mi>
+              <mn>2</mn>
+            </mfrac>
+          </mrow>
+          <mo>=</mo>
+          <munderover>
+            <mo>∑</mo>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>k</mi><mo>=</mo><mn>0</mn>
+            </mrow>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="normal">∞</mi>
+            </mrow>
+          </munderover>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mrow>
+                <mi>k</mi><mo>!</mo>
+              </mrow>
+              <mrow>
+                <mo stretchy="false">(</mo><mn>2</mn><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mo>!</mo><mo>!</mo>
+              </mrow>
+            </mfrac>
+          </mrow>
+          <mo>=</mo>
+          <munderover>
+            <mo>∑</mo>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>k</mi><mo>=</mo><mn>0</mn>
+            </mrow>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="normal">∞</mi>
+            </mrow>
+          </munderover>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mrow>
+                <mpadded width="0" height="8.6pt" depth="3pt">
+                  <mrow></mrow>
+                </mpadded>
+                <mstyle displaystyle="false" scriptlevel="0">
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <msup>
+                      <mn>2</mn>
+                      <mrow class="MJX-TeXAtom-ORD">
+                        <mi>k</mi>
+                      </mrow>
+                    </msup>
+                    <mi>k</mi>
+                    <msup>
+                      <mo>!</mo>
+                      <mrow class="MJX-TeXAtom-ORD">
+                        <mn>2</mn>
+                      </mrow>
+                    </msup>
+                  </mrow>
+                </mstyle>
+              </mrow>
+              <mrow>
+                <mpadded width="0" height="8.6pt" depth="3pt">
+                  <mrow></mrow>
+                </mpadded>
+                <mstyle displaystyle="false" scriptlevel="0">
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mo stretchy="false">(</mo><mn>2</mn><mi>k</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mo>!</mo>
+                  </mrow>
+                </mstyle>
+              </mrow>
+            </mfrac>
+          </mrow>
+          <mo>=</mo>
+          <mn>1</mn>
+          <mo>+</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mfrac>
+              <mn>1</mn>
+              <mn>3</mn>
+            </mfrac>
+          </mrow>
+          <mrow>
+            <mo>(</mo>
+            <mrow>
+              <mn>1</mn><mo>+</mo>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mfrac>
+                  <mn>2</mn>
+                  <mn>5</mn>
+                </mfrac>
+              </mrow>
+              <mrow>
+                <mo>(</mo>
+                <mrow>
+                  <mn>1</mn><mo>+</mo>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mfrac>
+                      <mn>3</mn>
+                      <mn>7</mn>
+                    </mfrac>
+                  </mrow>
+                  <mrow>
+                    <mo>(</mo>
+                    <mrow>
+                      <mn>1</mn><mo>+</mo><mo>⋯</mo>
+                    </mrow>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+                <mo>)</mo>
+              </mrow>
+            </mrow>
+            <mo>)</mo>
+          </mrow>
+        </mstyle>
+      </mrow>
+    </semantics>
+  </math>
+</figure>
+
+(Where *k!!* is the odd-only factorial of *k*)
+
+Now, we **could** implement the sequence discretely according to probably the
+second summation (this *k!!* seems a bit of a pain to implement), but if you
+squint a bit at the right hand sequence, it looks a bit like:
+
+<figure>
+  <math>
+    <semantics>
+    <mstyle displaystyle="true">
+    <mrow>
+      <mfrac>
+        <mn>π</mn>
+        <mn>2</mn>
+      </mfrac>
+      <mo>=</mo>
+      <mrow>
+        <munderover>
+          <mo>∑</mo>
+          <mrow>
+            <mi>k</mi><mo>=</mo><mn>0</mn>
+          </mrow>
+          <mrow>
+            <mi mathvariant="normal">∞</mi>
+          </mrow>
+        </munderover>
+        <msub><mi>n</mi><mi>k</mi></msub>
+      </mrow>
+      <mo>where</mo>
+      <mrow>
+        <msub><mi>n</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn>
+      </mrow>
+      <mo>; </mo>
+      <mrow>
+      <msub><mi>n</mi><mi>k</mi></msub>
+      <mo>=</mo>
+      <msub><mi>n</mi><mrow><mi>k</mi><mo>-</mo><mn>1</mn></mrow></msub>
+      <mo>·</mo>
+      <mfrac>
+      <mi>k</mi>
+      <mrow><mn>2</mn><mi>k</mi><mo>+</mo><mn>1</mn></mrow>
+      </mfrac>
+      </mrow>
+      </mrow>
+      </mstyle>
+    </semantics>
+  </math>
+</figure>
+
+Which saves us some calculation as during a gather / take we already know what
+*n<sub>k-1</sub>* is. Throw it together, sum the results, multiply by two, and
+Bob's yer uncle.
+
+While we're at it, we'll use FatRats those pesky IEE754 floats and their
+imprecision away.
+
+Through some analysis I found that 608 iterations was enough to give me 177
+correct significant digits, which is the final size of the script; that's quite
+a lot better than 1M iterations to get 12…
+
+### Algorithmic Script Size
+
+‘Enough tedious maths!’ you say, ‘tell us something about programming!’
+
+Cool feature of Perl 6 – you can find the size of the current script using
+`$?FILE.IO.s`. To round out the script I used that (+ 1 for the decimal point)
+as the end of the substring of my calculated π.
+
+See my solution at
+[https://github.com/fjwhittle/perlweeklychallenge-club/blob/master/challenge-004/fjwhittle/perl6/ch-1.p6](https://github.com/fjwhittle/perlweeklychallenge-club/blob/master/challenge-004/fjwhittle/perl6/ch-1.p6)
+
+## Letters in words in list in … ?
+
+Part 2 of the week 4 challenge starts with “You are given a file containing a
+list of words (case insensitive 1 word per line) and a list of letters” however
+doesn't provide any such data. I have to admit I'm not a big fan of challenges
+with undefined data sets, although I can also certainly appreciate that
+providing data for testing is potentially not something challenge authors have
+time for. The challenge itself is fairly similar to an anagram generator I had a
+go at making for my own fun some time back (around the release of 6.c).
+
+I'll have a crack at it soon and update this post.
+
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=MML_HTMLorMML">
+</script>
+
