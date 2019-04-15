@@ -19,8 +19,15 @@ layout: sidebar
     {{ content }}
   </div>
 
-  {%- if site.disqus.shortname -%}
-    {%- include disqus_comments.html -%}
+  {%- if page.utterances -%}
+    <script src="https://utteranc.es/client.js"
+        repo="fjwhittle/fjwhittle.github.io"
+        issue-term="og:title"
+        label="blog-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+    </script>
   {%- endif -%}
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
