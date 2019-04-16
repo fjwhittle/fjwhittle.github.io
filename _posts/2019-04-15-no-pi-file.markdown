@@ -6,7 +6,7 @@ author: Francis
 tags:
 - perlweeklychallenge
 - perl6
-modified_time: '2019-04-16T00:52:42.000+10:00'
+modified_time: '2019-04-17T01:02:06.000+10:00'
 utterances: true
 ---
 
@@ -304,7 +304,72 @@ providing data for testing is potentially not something challenge authors have
 time for. The challenge itself is fairly similar to an anagram generator I had a
 go at making for my own fun some time back (around the release of 6.c).
 
-I'll have a crack at it soon and update this post.
+### Finding data.
+
+Hmm. Where would I find a list of words lying around waiting to be used?
+
+```
+$ time perl6 -e 'put + "/usr/share/dict/british-english".IO.lines.unique'
+101921
+
+real	0m0.593s
+user	0m0.671s
+sys	0m0.065s
+```
+
+Seems reasonable. Next step is to get a list of letters… Oh, let's just use
+command line arguments.
+
+One of my favourite things about Perl 6 is how easy it is to get arguments from
+the command line. I normally make my main script file `unit sub MAIN();`, which
+lets me treat it otherwise like a script. I can then use Pod to document the
+options as well.
+
+{% highlight perl -%}
+#| Find words in a file that contain only the given letters
+unit sub MAIN(
+  Str $file #= file containing list of words
+    where { given .IO { .r && ( .l || .f) or die "Cannot read from $_" }  } #= file containing list of words
+  *@letters #= list of letters to search for
+);
+{%- endhighlight %}
+
+We'll approach the problem using Bags and the subsets thereof. We use Bags
+instead of Sets to count duplicate letters.
+
+We'll comb through each of the gobbled arguments for letters, which will allow
+the user to enter words on the command line, so map the @letters array to
+lower-case, comb each argument for letters, flatten, and convert to a bag..
+
+{% highlight perl -%}
+my $letter-bag := @letters.hyper.map(*.lc.comb(/ \w /)).flat.Bag;
+{%- endhighlight %}
+
+`.hyper` makes the `.map` happen in parallel. Maybe not a huge deal for this
+step, however when now building a list of word bags out of a 102000 line file it
+makes the 30 second process take 10 (on my system – an old Athlon II.  It
+doesn't even have SSEv4, but it **does** have 4 cores).
+
+{% highlight perl -%}
+my @words = $file.IO.lines.unique.hyper.grep(*.chars > 2)
+                 .map: { .lc.comb(/ \w /).Bag => $_ };
+{%- endhighlight %}
+
+Use of a pair here allows us to map a word bag to the unmodified word
+preserving order, punctuation, and case.
+It's now a pretty simple task to find our words; we just grep the `@words` list
+for a key that's a subset of or equal to the `$letter-bag` using the `⊆`
+operator, and print out the corresponding values.
+
+```
+$ perl6 ch-2.p6 /usr/share/dict/british-english hello dolly
+Dell, Doe, Dole, Dolly, Dooley, Doyle, Eloy, Hell, Holley, Holly, Hood, Hoyle,
+Hyde, Leo, Lloyd, Loyd, Lyell, Lyle, Odell, doll, dye, ell, he'd, he'll, held,
+hello, hey, hod, hoe, hoed, hold, hole, holed, holy, hooey, led, lode, loll,
+lolled, lye, ode, oho, old, oleo, yell, yodel
+```
+
+Looks good to me 😊.  See the full solution at [https://github.com/fjwhittle/perlweeklychallenge-club/blob/master/challenge-004/fjwhittle/perl6/ch-2.p6](https://github.com/fjwhittle/perlweeklychallenge-club/blob/master/challenge-004/fjwhittle/perl6/ch-2.p6)
 
 <script type="text/javascript" async
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=MML_HTMLorMML">
