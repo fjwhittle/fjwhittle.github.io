@@ -1,0 +1,10 @@
+.box {
+  border-width: 1px;
+  border-color: rgba($grey-color-light, 0.5);
+  border-style: solid none;
+  padding: $spacing-unit / 6;
+  margin: ($spacing-unit / 6) 0;
+  color: $grey-color;
+  font-size: 0.825rem;
+  font-family: $heading-font-family;
+}
