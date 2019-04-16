@@ -1,0 +1,20 @@
+{%- if site.utterances -%}
+  <script src="https://utteranc.es/client.js"
+          repo="{{ site.utterances.repo }}"
+          {%- if site.utterances.issue-term %}
+          issue-term="{{ site.utterances.issue-term }}"
+          {%- endif %}
+          label="{{ site.utterances.label }}"
+          theme="{{ site.utterances.theme }}"
+          crossorigin="anonymous"
+          async>
+  </script>
+  <div class="info box">Comments are served from Github issues, and
+    require authentication with your Github account. Your personal
+    information is not stored with
+    <a href="{{ "/" | relative_url}}">{{site.title}}</a>.<br />
+    For information on your privacy including GDPR details, see
+    <a href="https://github.com/site/privacy">Github's privacy
+    statement</a>.
+  </div>
+{%- endif -%}

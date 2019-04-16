@@ -19,8 +19,14 @@ email: rage@powered.ninja
 description: >- # this means to ignore newlines until "baseurl:"
   Code musings of a disillusioned web developer.
 baseurl: "" # the subpath of your site, e.g. /blog
-# url: "//rage.powered.ninja" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://rage.powered.ninja" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  fjwhittle
+
+utterances:
+  repo: fjwhittle/fjwhittle.github.io
+  issue-term: "og:title"
+  label: blog-comment
+  theme: github-light
 
 # Build settings
 markdown: kramdown

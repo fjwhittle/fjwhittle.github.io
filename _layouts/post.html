@@ -18,17 +18,11 @@ layout: sidebar
   <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
   </div>
-
-  {%- if page.utterances -%}
-    <script src="https://utteranc.es/client.js"
-        repo="fjwhittle/fjwhittle.github.io"
-        issue-term="og:title"
-        label="blog-comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-    </script>
-  {%- endif -%}
-
+  
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>
+
+{%- if page.utterances -%}
+  {%- include utterances.html -%}
+{%- endif -%}
+
