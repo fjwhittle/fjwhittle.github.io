@@ -26,6 +26,14 @@ main {
 
 .sidebar {
   grid-area: side;
+
+  > h2, > .post-list {
+    padding: 0 $spacing-unit / 3;
+  }
+}
+
+footer {
+  grid-area: foot;
 }
 
 .wrapper {
@@ -38,13 +46,25 @@ main {
 
 @media (min-width: $on-palm) {
   body.has-sidebar {
-    grid-template-areas: "head head"
-                           "main side"
-                           "foot side";
-    grid-template-columns: minmax(auto, $content-width) $sidebar-width;
+    grid-template-areas: "head head head"
+                           "space main side"
+                           "space foot side";
+    grid-template-columns: minmax(0, 1fr) minmax(auto, $content-width) minmax(255px, 1fr);
 
     main {
-      max-width: calc(100vw - #{$sidebar-width + $spacing-unit / 2});
+      max-width: calc(100vw - #{$sidebar-width + $spacing-unit * 1.5});
+    }
+
+    .sidebar {
+      width: $sidebar-width;
+      position: sticky;
+      top: 0px;
+      align-self: start;
+      min-height: 100vh;
+
+      .post-list {
+        padding-left: 0;
+      }
     }
   }
 
