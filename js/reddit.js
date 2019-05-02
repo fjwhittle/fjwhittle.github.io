@@ -17,9 +17,12 @@ function process_reddit(kind, data) {
   let $ul = $d.createElement('ul');
   frag.appendChild($ul);
 
-  for(child of data.children) {
-    let {$link: permalink, $name: subreddit_name_prefixed, $comments: num_comments} = child;
+  for(let child of data.children) {
+    let {permalink: $link, subreddit_name_prefixed: $name, num_comments: $comments} = child.data;
+    let $a  = $d.createElement('a'),
+        $li = $d.createElement('li');
     $a.setAttribute('href', 'https://www.reddit.com' + $link);
+    $a.setAttribute('referrerpolicy', 'no-referrer');
     $a.appendChild($d.createTextNode($name || 'No subreddit'));
     $li.appendChild($a);
     $li.appendChild($d.createTextNode(' (' + $comments + ' comment' + ($comments == 1? '': 's') + ')'));
