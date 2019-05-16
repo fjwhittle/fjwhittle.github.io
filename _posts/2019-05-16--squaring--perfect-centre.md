@@ -6,14 +6,14 @@ author: Francis
 tags:
 - perlweeklychallenge
 - perl6
-modified_time: '2019-05-16T10:39:07.000+10:00'
+modified_time: '2019-05-16T10:52:56.000+10:00'
 utterances: true
 ---
 
 Blogging back, for the [eighth Perl weekly
 challenge](https://perlweeklychallenge.org/blog/perl-weekly-challenge-008/).
 
-This week our two challenge were to calculate the first 5 perfect numbers, and
+This week our two challenges were to calculate the first 5 perfect numbers, and
 to centre a series of lines on the page.
 
 ## Perfect Numbers
