@@ -30,6 +30,14 @@
 
 </footer>
 
-<link rel="stylesheet" href="https://fontlibrary.org/face/linux-biolinum" />
-<link rel="stylesheet" href="https://fontlibrary.org/face/linux-libertine" />
-<link rel="stylesheet" href="https://fontlibrary.org/face/kaushan-script" />
+<link rel="stylesheet-deferred" href="https://fontlibrary.org/face/linux-biolinum" />
+<link rel="stylesheet-deferred" href="https://fontlibrary.org/face/linux-libertine" />
+<link rel="stylesheet-deferred" href="https://fontlibrary.org/face/kaushan-script" />
+
+<script>
+  addEventListener('load', function () {
+    for (let el of document.querySelectorAll('link[rel="stylesheet-deferred"]')) {
+      el.setAttribute('rel', 'stylesheet');
+    }
+  });
+</script>
