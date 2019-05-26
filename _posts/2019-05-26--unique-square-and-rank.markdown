@@ -6,7 +6,7 @@ author: Francis
 tags:
 - perlweeklychallenge
 - perl6
-modified_time: '2019-05-26T22:01:18.000+10:00'
+modified_time: '2019-05-26T22:37:54.000+10:00'
 utterances: true
 ---
 
@@ -40,12 +40,12 @@ if you care.
 
 ## Varying styles of rank
 
-Insert standard rant about vague specifications here. In the end I got 20
-copypasta from a random name generator and `Z=>`pped them up to a dice roll out
-of 10.
+Insert standard rant about vague specifications here. In the end, for test data
+I got 20 copypasta from a random name generator and `Z=>`pped them up to dice
+rolls out of 10.
 
 All the same, I went relatively all out on this one. Not because the challenge
-was hard, but because it's a nice opportunity to (completely superfluous) play
+was hard, but because it's a nice opportunity to (completely superfluously) play
 with multi dispatch.
 
 `RankMode` is an enum of the ranking modes, `<rank-standard rank-modified
@@ -71,7 +71,7 @@ my multi rank(@scores where { $_».?value.all ~~ Int },
 {% endhighlight %}
 
 With `rank-modified` and `rank-dense` substituted for `rank-standard` in the
-second and third sub's signatures. This allows us to make apparently the same
+second and third subs' signatures. This allows us to make apparently the same
 function call but a *different* implementation is used depending on what
 `RankMode` is given.
 
@@ -100,7 +100,7 @@ the `rand-modified` one; if anyone has any ideas on how to avoid this, I'd love
 to hear them. The implementation was:
 
 {% highlight perl %}
-Hash.new.append(@scores.invert).pairs.sort(&ranking) {
+Hash.new.append(@scores.invert).pairs.sort(&ranking).map: {
   my $e = .invert.map: {$n => $_};
   $n += .value.elems;
   |$e;
