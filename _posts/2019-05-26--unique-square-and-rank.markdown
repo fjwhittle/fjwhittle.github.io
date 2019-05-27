@@ -6,7 +6,7 @@ author: Francis
 tags:
 - perlweeklychallenge
 - perl6
-modified_time: '2019-05-27T12:37:04.000+10:00'
+modified_time: '2019-05-27T12:38:48.000+10:00'
 utterances: true
 ---
 
@@ -97,7 +97,7 @@ The contents of these subroutines is very similar, where:
 I'm actually a little frustrated that when I tried to do this with a mapping
 function, my `$n` ranking variable would always be evaluated before anything was
 mapped to the output, which made the `rank-standard` routine behave the same as
-the `rand-modified` one; if anyone has any ideas on how to avoid this, I'd love
+the `rank-modified` one; if anyone has any ideas on how to avoid this, I'd love
 to hear them. The implementation was:
 
 {% highlight perl %}
