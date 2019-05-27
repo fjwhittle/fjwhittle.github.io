@@ -6,7 +6,7 @@ author: Francis
 tags:
 - perlweeklychallenge
 - perl6
-modified_time: '2019-05-26T22:37:54.000+10:00'
+modified_time: '2019-05-27T12:37:04.000+10:00'
 utterances: true
 ---
 
@@ -57,9 +57,10 @@ later):
 
 {%- highlight perl -%}my proto rank($, RankMode, &?) { * }{%- endhighlight -%}
 
-`$` basically indicates the first argument is some kind of container, `RankMode`
-is as above, and `&?` indicates the third argument is a routine and is
-**optional**.
+`$` basically indicates the first argument <del>is some kind of container</del>
+(thanks [@raiph](https://github.com/raiph) for the correction),
+`RankMode` is as above, and `&?` indicates the third argument is a
+routine and is **optional**.
 
 Following this (in source order - chronologically I did them first), I have
 three multi declarations that look like:
@@ -129,5 +130,5 @@ because I started this challenge late owed to being at said `$day-job` all week
 (which I wasn't before).
 
 If I **was** to have a go at this one though, I'd probably use
-[Cro::HttpClient](https://cro.services/docs/reference/cro-http-client) though,
-because it will even marshal objects to JSON for me.
+[Cro::Http::Client](https://cro.services/docs/reference/cro-http-client)
+though, because it will even marshal objects to JSON for me.
