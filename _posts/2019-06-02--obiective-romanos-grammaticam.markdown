@@ -73,7 +73,7 @@ between the length of both strings and the number of transposed / out of
 sequence characters, and in fact I had an implementation of this working to my
 satisfaction before I realised that I'd missed something important.
 
-The matching characters cannot be more that half the length of the longer of the
+The matching characters cannot be more than half the length of the longer of the
 two strings away from each other.
 
 I *had* put together an elegant solution that would intersect the combed arrays
@@ -81,10 +81,10 @@ of the two strings together, and then loop through the matching characters in
 sequence according to the first string, adding transpositions for any character
 that was not in the right place in the second string, and now I had to replace
 one line with an ∩ operator with a highly inelegant looking loop through the
-first string and marks off any matching character with the second string within
+first string that marks off any matching character in the second string within
 the specified distance limits, unless it's already been marked off.
 
-Due to being unable to find more than two pieces of test data (that work the
+Due to being unable to find more than two pieces of test data (both of which work the
 same with or without the distance restriction), I'm not sure if it's even
 correct.
 
