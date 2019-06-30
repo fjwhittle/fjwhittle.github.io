@@ -6,7 +6,7 @@ author: Francis
 tags:
 - perlweeklychallenge
 - perl6
-modified_time: '2019-06-30T15:34:54.000+10:00'
+modified_time: '2019-07-01T00:18:23.000+10:00'
 utterances: true
 ---
 
@@ -18,7 +18,7 @@ Challenge 014](https://perlweeklychallenge.org/blog/perl-weekly-challenge-010/)
 The first challenge for me this week was to go to the Wikipedia page, read what
 it was saying, and try to figure out exactly what the Van Eck sequence is.
 
-This was at 10pm and I'd spent all day learning to adapt to Fedora afer
+This was at 10pm and I'd spent all day learning to adapt to Fedora after
 installing that on my new laptop (and discovering while trying to attach a
 NASalike via SSH to my existing workstation that I'd set up SSH to immediately
 launch a docker container that sandboxed my user into my home directory, thus
@@ -100,3 +100,71 @@ Georgia, Louisiana, Connecticut & Iowa are together [states of bad
 milk](https://www.wordnik.com/words/cacogalactia)...
 
 [Github link to solution](https://github.com/fjwhittle/perlweeklychallenge-club/blob/master/challenge-014/fjwhittle/perl6/ch-2.p6)
+
+## What time is it in ... ?
+
+This week's optional API challenge was to Find the given city current time using
+the Geo DB Cities API.
+
+The Geo DB Cities API has an endpoint that doesn't require an API key, which is
+a refreshing change.  The documentation on what that end point *is* seemed to be
+non-existent, though; after some hunting around in the network panel of Firefox
+on their demo pages I found what appeared to be it.
+
+I elected again (Ah, I did the optional challenge in
+[week 12](https://github.com/fjwhittle/perlweeklychallenge-club/blob/master/challenge-012/fjwhittle/perl6/ch-3.p6),
+but didn't blog that one) to use `Cro::Http::Client` to do the heavy lifting of
+HTTP connections, and don't seem to be able to find a URL encoding function for
+it, so I reused the routine I put together for this last time, but with support
+for turning spaces into `+`:
+
+{% highlight perl -%}
+sub url-part-encode (Str(Cool) $in --> Str) {
+  $in.trans: (|<! # $ % & ' ( ) * + , / : ; = ? @ [ ]>, ' ') => (|<%21 %23 %24 %25 %26 %27 %28 %29 %2A %2B %2C %2F %3A %3B %3D %3F %40 %5B %5D>, '+')
+}
+{%- endhighlight %}
+
+Pretty trivial, but I in no way endorse this as a complete solution for input
+sanitation. Someone please tell me if I've missed something that does this in a
+more bulletproof manner.
+
+`Cro::Http::Client` is pretty straightforward to use. You can create a defined
+instance of it or not, then use the `get` method (or `post`, or `request` as
+appropriate) to access the data you require. This creates a promise that
+includes various methods for getting the response, including `body` which will
+automatically convert JSON into Perl 6 structures for you. This itself returns a
+Promise, which seems a bit awkward, although I'm sure there's a reason for it.
+
+Which brings me onto a new gripe, which is that chaining Promises together feels
+awkward; I feel like using a `Promise` in sink context at the end of a `then`
+block should chain automatically like it does in ECMAScript6, but it seems they
+don't, so I end up with awkward chains like:
+
+{% highlight perl -%}
+$geodb-client.get(...).then({ await .result.body }).then({ if my $cityid = .result<data>[0]<id> {...} });
+{%- endhighlight %}
+
+or worse:
+
+{% highlight perl -%}
+.then({ .result.body }).then({ if my $cityid = .result.result<data>[0]<id> {...} })
+{%- endhighlight %}
+
+Maybe I've missed something? Maybe I've spent too long in the browser… I guess
+given that in Diwali `await` no longer blocks a thread, it may as well be
+written as:
+
+{% highlight perl -%}
+.then({ if my $cityid = await(.result.body).<data>[0]<id> {...} })
+{%- endhighlight %}
+
+This is particularly relevant in this case, because when you have a city name,
+you have to make an API call to turn that into an ID, and **then** you can call
+the dateTime endpoint on that city ID, so that's 4 Promises.
+
+I'm also struggling with error handling inside `then` blocks. I want to `fail`,
+but end up with internal MoarVM errors (tried to unwind entire stack…). I guess
+I have quite a bit to learn there, but didn't feel like following it to the
+bitter end this time around.
+
+[Github link to solution](https://github.com/fjwhittle/perlweeklychallenge-club/blob/master/challenge-014/fjwhittle/perl6/ch-3.p6).
