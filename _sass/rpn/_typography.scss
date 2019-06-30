@@ -1,8 +1,15 @@
-* {
+body {
+  font-size: inherit;
   font-size-adjust: 0.45;
 }
 
-.post-link { font-size: unset; }
+.post-list {
+  font-family: $heading-font-family;
+}
+
+.post-link {
+  font-size: unset;
+}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $heading-font-family;

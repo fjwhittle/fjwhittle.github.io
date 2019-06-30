@@ -1,16 +1,21 @@
 <aside class="sidebar">
   {%- if site.posts.size > 0 -%}
   <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
+  {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+  {%- assign postsByYearMonth = site.posts | group_by_exp:"post", "post.date | date: '%B %Y'" -%}
   <ul class="post-list">
-    {%- for post in site.posts -%}
-    <li>
-      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-      <span class="post-meta">{{ post.date | date: date_format }}</span>
-      <h3>
-        <a class="post-link" href="{{ post.url | relative_url }}">
-          {{ post.title | escape }}
-        </a>
-      </h3>
+    {%- for yearMonth in postsByYearMonth -%}
+    <li><h3>{{ yearMonth.name }}</h3>
+      <ul>
+        {%- for post in yearMonth.items -%}
+        <li>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            {{ post.title | escape }}
+          </a>
+          <span class="post-meta">{{ post.date | date: date_format }}</span>
+        </li>
+        {%- endfor -%}
+      </ul>
     </li>
     {%- endfor -%}
   </ul>

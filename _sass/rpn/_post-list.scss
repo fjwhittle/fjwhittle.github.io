@@ -1,0 +1,62 @@
+.post-list {
+  h3 {
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+
+    li {
+      flex-flow: row nowrap;
+      align-items: center;
+    }
+  }
+
+  .post-meta {
+    order: -1;
+
+    min-width: 7.5ex;
+
+    border: 1px solid $grey-color;
+    background: lighten($grey-color, 60%);
+    padding: 2px;
+    margin-right: 5px;
+    text-align: center;
+  }
+
+  li {
+    margin: $spacing-unit / 6 0;
+    display: flex;
+    flex-flow: column;
+  }
+
+  @supports (display: grid) and (display: contents) {
+    display: grid;
+
+    grid-auto-flow: row dense;
+    grid-template-columns: auto 1fr;
+    align-content: center;
+    align-items: center;
+
+    grid-gap: 10px 0;
+
+    li, ul {
+      display: contents;
+    }
+
+    h3 {
+      grid-column: 1 / -1;
+    }
+
+    .post-link {
+      grid-column: 2;
+    }
+
+    .post-meta {
+      order: unset;
+      grid-column: 1;
+    }
+  }
+}
