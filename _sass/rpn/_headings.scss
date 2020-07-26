@@ -22,21 +22,20 @@
 .site-title {
   color: #88007b;
   filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2)) hue-rotate(0);
-  //animation: 180s slow-colour infinite linear;
 
-  @supports (-webkit-background-clip: text) or (background-clip: text) {
-      background: linear-gradient(to bottom, #88007b, #ff6040);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-stroke: 5px transparent;
-      -webkit-text-fill-color: #FFB811;
-      paint-order: stroke;
+  @supports (filter: url(#funkyoutlines)) {
+    color: #FFB811;
+    filter: url(#funkyoutlines);
+
+    &:visited {
+      color: #FFB811;
+    }
   }
 }
 
 @keyframes slow-colour {
-  from { filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2)) hue-rotate(0); }
-  to   { filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2)) hue-rotate(1turn); }
+  from { filter: url(#funkyoutlines) drop-shadow(1px 1px 1px rgba(0,0,0,0.2)) hue-rotate(0); }
+  to   { filter: url(#funkyoutlines) drop-shadow(1px 1px 1px rgba(0,0,0,0.2)) hue-rotate(1turn); }
 }
 
 .sidebar h2 {

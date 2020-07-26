@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE svg>
+<svg version="1.1" viewBox="0 0 480 250" height="0" width="0">
+  <defs>
+    <linearGradient id="ninjaGradient">
+      <stop id="stop1" offset="0" style="stop-color:#88007b;stop-opacity:1" />
+      <stop id="stop2" offset="1" style="stop-color:#ff6040;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <g id="layer1">
+    <rect x="0" y="0" height="100%" width="100%" id="ninjaImage" style="fill:url(#ninjaGradient);fill-rule:evenodd;stroke-width:0;stroke-linecap:square;fill-opacity:1;image-rendering:auto" />
+  </g>
+</svg>

@@ -1,6 +1,21 @@
-
+<svg>
+  <defs>
+    <filter id="funkyoutlines">
+      <feImage href="/images/gradient.svg" result="gradient" preserveAspectRatio="none"></feImage>
+      <feMorphology result="outlineinner" operator="dilate" in="SourceAlpha" radius="1"></feMorphology>
+      <feMorphology result="outlineouter" operator="dilate" in="SourceAlpha" radius="2"></feMorphology>
+      <feComposite result="gradientoutline" operator="in" in="gradient" in2="outlineinner"></feComposite>
+      <feComposite result="outlined" in="SourceGraphic" in2="gradientoutline" operator="over"></feComposite>
+      <feComposite operator="over" in2="outlineouter" in="outlined" result="monty"></feComposite>
+      <feOffset in="SourceAlpha" dx="1" dy="1" result="knock"></feOffset>
+      <feComposite in="SourceAlpha" in2="knock" operator="out" result="highlight"></feComposite>
+      <feFlood flood-color="#ffff" result="whitey"></feFlood>
+      <feComposite in="whitey" in2="highlight" operator="in" result="highlight"></feComposite>
+      <feBlend in="highlight" in2="monty" mode="soft-light"></feBlend>
+    </filter>
+  </defs>
+</svg>
 <header class="site-header" role="banner">
-
   <div class="wrapper">
     {%- assign default_paths = site.pages | map: "path" -%}
     {%- assign page_paths = site.header_pages | default: default_paths -%}
