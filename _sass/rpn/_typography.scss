@@ -1,3 +1,80 @@
+@font-face {
+  font-family: 'KaushanScriptRegular';
+  src: url('/assets/fonts/KaushanScript-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LinuxBiolinum';
+  src: url('/assets/LinuxBiolinumBold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LinuxBiolinum';
+  src: url('/assets/LinuxBiolinumItalic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'LinuxBiolinumKeyboard';
+  src: url('/assets/fonts/LinuxBiolinumKeyboardRegular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LinuxBiolinum';
+  src: url('/assets/fonts/LinuxBiolinumRegular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'LinuxLibertine';
+        src: url('/assets/fonts/LinuxLibertineBold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'LinuxLibertine';
+        src: url('/assets/fonts/LinuxLibertineBoldItalic.woff2') format('woff2');
+    font-weight: bold;
+    font-style: italic;
+      }
+
+@font-face {
+    font-family: 'LinuxLibertineDisplay';
+        src: url('/assets/fonts/LinuxLibertineDisplayRegular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'LinuxLibertine';
+        src: url('/assets/fonts/LinuxLibertineItalic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+      }
+
+@font-face {
+    font-family: 'LinuxLibertineMono';
+        src: url('/assets/fonts/LinuxLibertineMono.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+      }
+
+@font-face {
+    font-family: 'LinuxLibertine';
+        src: url('/assets/fonts/LinuxLibertineRegular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+      }
+
 * {
   font-size-adjust: 0.45;
 }

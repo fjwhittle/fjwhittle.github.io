@@ -12,6 +12,12 @@ body {
   justify-content: center;
 
   grid-gap: $spacing-unit / 2;
+
+  &> svg {
+      grid-area: foot;
+      width: 0;
+      height: 0;
+  }
 }
 
 header {
