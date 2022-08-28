@@ -30,10 +30,10 @@ function process_reddit(kind, data) {
   }
 
   document.querySelector('.sidebar').appendChild(frag);
-}
 
+}
 if ('fetch' in window) {
-  fetch(`//cors-anywhere.herokuapp.com/https://www.reddit.com/api/info.json?url=${window.encodeURIComponent(window.location)}`, {credentials: "omit"})
+  fetch(`//api.reddit.com/api/info.json?url=${window.encodeURIComponent(window.location)}`, {credentials: "omit"})
     .then((r) => r.json())
     .then(({kind, data}) => process_reddit(kind, data));
 }
