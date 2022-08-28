@@ -33,7 +33,7 @@ function process_reddit(kind, data) {
 
 }
 if ('fetch' in window) {
-  fetch(`//api.reddit.com/api/info.json?url=${window.encodeURIComponent(window.location)}`, {credentials: "omit"})
+  fetch(`//api.reddit.com/api/info.json?url=${window.encodeURIComponent(window.location)}`, {credentials: "omit", mode: "no-cors"})
     .then((r) => r.json())
     .then(({kind, data}) => process_reddit(kind, data))
     .catch((e) => console.error('Failed to fetch from Reddit API - ', e))
